@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        overflow-y: hidden;
+        margin: 0;
+    }
+    .shell{
+        overflow-x: hidden; 
+        perspective: 3px;
+    }
+    /*背景影片 */
+    .bkvideo{
+        position: relative;
+        transform: translateZ(-50px) scale(20); /* 將影片挪後50像素，在放大回原來大小，達到滑動速度較慢的效果*/
+        height: 100vh; /*高度*/
+        right: 600%;
+        z-index: -999;
+    }
+
+    .heading {
+        color:aqua;
+        position:absolute;
+        height: 100%;
+        top: 10%;
+        padding: 1% 2% 10% 2%;
+    }
+
+    .main-box{
+        position:fixed;
+        backdrop-filter: blur(10px);
+        padding: 0% 25% 100% 25%;
+        left: 25%;
+        top: 30%;
+        height: 20px;
+        width: 10px;
+        font-size: 50px;
+        z-index: 1;
+    }
+
+   .box{
+        position:fixed;
+        padding: 0% 25% 100% 25%;
+        left: 2%;
+        top: 40%;
+        height: 20px;
+        width: 10px;
+        font-size: 50px;
+        z-index: 999;
+        overflow: hidden;
+    }
+
+    .box img{
+       position:relative;
+       object-fit: cover;
+       z-index: 800;
+    }
+
+    .title{
+        position:fixed;
+        display: flex;
+        color : white;
+        text-shadow: 0 0 10px white,0 0 20px white,0 0 30px white,0 0 40px white;
+        z-index: 999;
+        background-color: rgba(0, 0, 0,0.1);
+        padding: 10px;
+        align-items: center;
+        font-size: 30px;
+        left: 30%;
+       
+    }
+
+
+
+  
+</style>
+<body>
+    <div class="main-box">1</div>
+    <div class="title"><h1>輔仁高中陳政鴻-成果集</h1></div>
+
+    <div class="shell">
+
+      <!-- <div class="heading">
+                <h1>When you are confused</h1>
+            </div>-->
+        
+        <div class="box"><img src="./demo/11.jpg"></div>
+       
+
+        <div class="bkvideo">
+            <video autoplay muted loop>
+                <source src="./demo/3.mp4">
+            </video>
+        </div>
+        
+    </div>
+ </div>
+</body>
+</html>
