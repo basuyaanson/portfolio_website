@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANOTHE</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+
+        .shell{
+            z-index: 1;
+        }
+        
+        .bkvideo{
+            position:fixed;
+            transform: scale(0.7);
+            top: 0;
+            left: 0;
+            right: 150%;
+            bottom: 100%;
+            z-index: -1;
+        }
+        /*頁面 */
+        .img-box{ 
+            position: absolute;
+            width: 40%;
+            height: 60%;
+            transition: .5s; /*轉場動畫*/
+            z-index: 1;
+            overflow: hidden;
+            display: flex;
+            left: 10%;
+            top: 15%;
+        }
+
+        .img-box img{
+            height: 100%;
+            opacity: 0.9;
+        }
+
+        .text-box{
+            position: absolute;
+            width: 40%;
+            height: 60%;
+            transition: .5s; /*轉場動畫*/
+            z-index: 1;
+            overflow: hidden;
+            display: flex;
+            left: 50%;
+            top: 15%;
+            backdrop-filter: blur(5px);
+        }
+
+
+
+
+        @keyframes fade{
+            0%{
+                opacity: 0;
+            }
+            50%{
+                opacity: 0;
+                transform: translate(-50px);
+            }
+            100%{
+                opacity: 1;
+                transform: translate(0px);
+            }
+        }
+
+    </style>
+
+
+</head>
+<body>
+    <div class="bkvideo">
+        <video autoplay muted loop>
+             <source src="/html/pubilc-img/bkvideo2.mp4">
+         </video>
+    </div>
+    <div class="img-box"><img src="./1.JPG" ></div>
+    <div class="text-box">1</div>
+<div class="shell">
+
+
+   
+    <label for="button1" class="button" style="--i:0">展示影片</label>
+    <input type="radio" id="button1" name="page" checked>
+    <div class="content">
+        
+    </div>
+
+    <label for="button1" class="button" style="--i:0">展示影片</label>
+    <input type="radio" id="button1" name="page" checked>
+
+    <label for="button1" class="button" style="--i:0">展示影片</label>
+    <input type="radio" id="button1" name="page" checked>
+
+    
+
+</div>
+</body>
+</html>
