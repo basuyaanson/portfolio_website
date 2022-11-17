@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANOTHE</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+
+       
+        /*背景影片*/
+        .bkvideo{
+            position:fixed;
+            transform: scale(0.8);
+            top: 0;
+            left: 0;
+            right: 150%;
+            bottom: 100%;
+            z-index: -1;
+        }
+
+        /*頁面*/
+        .main-box{
+             position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color:rgba(1,1, 1, 0);
+        
+        }
+
+        /*按鈕*/
+        .button{
+            border: solid 2px white;
+            cursor: pointer;
+            z-index: 999;
+            position:relative;
+            font-size: 35px;
+            margin: 8%;
+            top: 90%;
+          /*  animation: fade 2s; */
+            color: white;   
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            transition: 0.5s;
+        }
+
+        /*文字盒子盒子*/
+        .text-box{
+            position:relative;
+            width: 110%;
+            height: 100%;
+            z-index: 1;
+            left: 10%;
+            background-color:rgba(1,1, 1, 0.2);
+            backdrop-filter: blur(3px);
+            box-shadow: 0px 12px 6px rgba(0, 0, 0, 0.5);
+            transform: translate(85%);
+            text-align: center;
+            color: aquamarine;
+           
+           
+        }
+
+        
+        /*圖片盒子*/
+        .img-box{ 
+            position: absolute;
+            width: 35%;
+            height: 60%;
+            left: 10%;
+            top: 15%;
+          /*animation: fade 2s;*/
+            background-size: cover;
+            z-index: 11;
+            transform: translate(-250%);
+            transition: 1.5s;/* 轉場動畫*/
+            background-color: aqua;
+            box-shadow: 12px 12px 6px rgba(0, 0, 0, 0.5);
+        }
+        
+       
+        .button:hover {
+            background-color:rgba(255, 255, 255, 0.5);
+           animation: light 3s ;
+           animation-iteration-count:infinite;
+            color: black;
+        }
+
+       input{ display: none;} /*移除按鈕*/
+
+        
+      
+        input:checked+.img-box{
+            transform: translateX(50px);
+            animation: next 1s;
+           
+        }
+        .img-box:nth-child(3){
+           background-image: url('/html_main/3.jpg');
+        }
+
+        .img-box:nth-child(6){
+           background-image: url('/html_main/1.jpg');
+        }
+
+        .img-box:nth-child(9){
+           background-image: url('/html_main/2.jpg');
+        }
+
+        @keyframes light{
+            0%{
+                box-shadow: 0 0 0px white,0 0 0px white,0 0 0px white,0 0 0px white;
+            }
+            50%{
+                box-shadow: 0 0 10px white,0 0 20px white,0 0 30px white,0 0 40px white;
+            }
+            75%{
+                box-shadow: 0 0 10px white,0 0 20px white,0 0 30px white,0 0 40px white;
+            }
+            100%{
+                box-shadow: 0 0 0px white,0 0 0px white,0 0 0px white,0 0 0px white;
+            }
+
+        }
+
+        @keyframes up{
+            0%{
+               
+            }
+            100%{
+                top: 50%;
+            }
+
+        }
+
+        @keyframes fade{
+            0%{
+                opacity: 0;
+            }
+            50%{
+                opacity: 0;
+            }
+            75%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+
+        @keyframes next{
+            0%{
+                transform: translate3d(-100px,-200px,-100px);
+            }
+
+
+        }
+
+        span{
+            opacity: 0;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+    <div class="bkvideo">
+        <video autoplay muted loop>
+             <source src="/html_sorll/bk2.mp4">
+         </video>
+    </div>
+
+    <div class="main-box">
+
+
+
+        
+       <label for="button1" class="button" style="--i:0">展示影片</label>
+        <input type="radio" id="button1" name="value" checked>
+        <div class="img-box">
+            <div class="text-box">
+                <h1>展示影片</h1>
+                     <p></p>
+             </div>
+        </div>
+
+
+        
+
+    
+
+
+
+        <label for="button2" class="button" style="--i:1">設計思路</label>
+        <input type="radio" id="button2" name="value" checked>
+        <div class="img-box"><div class="text-box">
+            <h1>設計思路</h1>
+            <p>這個實時聊天室總共分為伺服器和用戶端兩個部分，伺服器負責接受所有用
+                戶端的訊息，再將接受到的訊息傳送給用戶端，而用戶端則是將訊息傳送給伺服
+                器，並接受伺服器傳來的訊息，其中傳輸的方法則是使用傳輸協定，這樣就能實
+                現網路聊天功能。
+                至於要實現多人同時聊天，還要使用多執行緒來實現，如果不使用多執行
+                緒，那麼伺服器在運行第一個用戶端函數時，就會進入循環，沒辦法去接受新的
+                用戶端進來，而使用多執行緒，就能讓伺服器在用戶端函數進行循環時，同時也
+                能去接受新的用戶端進來。</p>
+        </div></div>
+   
+
+        <label for="button3" class="button" style="--i:2"><span>占</span>心得<span>占</span></label>
+        <input type="radio" id="button3" name="value" checked>
+        <div class="img-box"><div class="text-box">
+            <h1>心得</h1>
+            <p></p>
+        </div></div>
+    
+
+       
+  
+   
+    </div>
+
+
+
+    
+
+
+
+
+</body>
+</html>
