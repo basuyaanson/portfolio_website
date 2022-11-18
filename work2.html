@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANOTHE</title>
+    <title>ANOTHE11</title>
     <style>
         body{
             margin: 0;
@@ -12,20 +12,25 @@
             overflow: hidden;
         }
 
+        @font-face {font-family: 'oxxo';src: url('text.ttf');} /*引入字體*/
+        span {opacity: 0;}/*透明文字*/
+        iframe{width: 100%;height: 100%;}/*限定youtuber影片大小*/
+        a{text-decoration: none;}/*取消超連結下劃線*/
+
+        /*標題*/
         .title{
             position: fixed;
             width: 55%;
             height: 7%;
             color: cyan;
-            display: flex;
             left: 40%;
             font-size: 40px;
             border: double;
             padding: 10px ;
             top: 1%;
+            font-family:oxxo, serif;
+            backdrop-filter: blur(3px);/*毛玻璃效果*/
         }
-
-       
         /*背景影片*/
         .bkvideo{
             position:fixed;
@@ -36,63 +41,59 @@
             bottom: 100%;
             z-index: -1;
         }
-        /*主盒子*/
+
+        /*主盒子 包含文字盒 圖片盒*/
         .main-box{
             position:fixed;
             width: 90%;
             height: 80%;
-            /*background-color: rgba(0, 0, 0, 0.5);*/
             left: 10%;
             top: 10%;
             transition: 1s;
-            transform: translate3d(-50vw,90vh,0px);
-           
+            transform: translate3d(-50vw,90vh,0px); /*初始位置*/
         }
-
 
         /*按鈕*/
         .button{
             border: solid 2px white;
-            cursor: pointer;
-            z-index: 999;
+            cursor: pointer;/*小手圖標*/
             position:absolute;
             font-size: 35px;
             margin: 8%;
-            top: 70%;
-          /*animation: fade 2s; */
+            top: 72%;
             color: white;   
-            backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px);/*毛玻璃效果*/
             padding: 10px;
             transition: 0.5s;
-            left: calc(20% + (var(--i)*17%));
+            left: calc(20% + (var(--i)*17%));/*使用變量控制按鈕間格*/
+            z-index: 44;
+            border-radius:10px;
+            background-color:rgba(1,1, 1, 0.2);
         }
 
-        
         /*文字盒子*/
         .text-box{
             position:relative;
             width: 45%;
             height: 70%;
-            z-index: 13;
-            background-color:rgba(255, 255, 255, 0.1);
+            background-color:rgba(1,1, 1, 0.2);
             backdrop-filter: blur(3px);
-            box-shadow: 12px 12px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 12px 12px 6px rgba(0, 0, 0, 0.6);
             text-align: center;
-            color:rgb(161, 255, 255);
+            color:rgb(255, 255, 255);
             left: 41%;
             bottom: 75%;
-           
-            
+            border-radius:10px;
         }
-
+        /*文字盒子 p標籤文字*/
         .text-box p{
             text-indent: 50px;
             padding: 30px 20px;
             font-size: 20px;
-            text-shadow: -1px 1px 0 rgb(83, 83, 83), 1px 1px 0 rgb(83, 83, 83),1px -1px 0 rgb(83, 83, 83),-1px -1px rgb(83, 83, 83);
+            font-weight: 800;
+            text-shadow: -1px 1px 0 #000, 1px 1px 0 #000,1px -1px 0 #000,-1px -1px 0 #000; 
         }
 
-        
         /*圖片盒子*/
         .img-box{ 
             position:relative;
@@ -104,40 +105,101 @@
             box-shadow: 6px 12px 6px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             top: 12%;
-           
+            border-radius:10px;
         }
+        .img-box img{height: 100%; }/*讓圖片填滿圖片盒子 寬度自適應*/
 
-        .img-box img{
-            height: 100%;
-            
-        }
+        /*githun盒子*/
         .github{
             position:absolute;
-            width: 10%;
-            height: 10%;
-            top: 80%;
-            left: 80%;
-           
-            
+            width: 7%;
+            top: 35%;
+            left: 92%;
+            transition: 0.3s;
         }
-
         .github img{
-            padding: 5px;
             width: 100%;
             border-bottom: solid 3px white;
+            background-color:rgba(255, 255, 255, 0.4);
+            border-radius:10px;
         }
-      
-
-       
-        
-       .github img:hover{
-            border: solid 3px white;
+        /*github文字*/
+        .text-github{
+            position:absolute;
+            top: -30%;
+            opacity: 0;
+            color:white;
+            text-decoration: none;
+            transition: 0.5s;
+            font-size: 30px;  
+            width: 100%;
+            height: 130%;
+            text-align: center;
+            line-height: 230px;
+            text-shadow: -1px 1px 0 #000, 1px 1px 0 #000,1px -1px 0 #000,-1px -1px 0 #000; 
+        }
+        /*鼠標懸停動畫*/
+       .github:hover{
+            transform: translateY(3px);
+            background-color: azure;
+            box-shadow: 0 0 10px azure,0 0 20px azure,0 0 30px azure,0 0 40px azure;
        }
+        .text-github:hover{
+        transform: translateY(40px);
+        opacity: 1;
+        height: 160%;
+        top: -60%;
+        opacity: 1;
+       }
+
+        /*google盒子*/
+        .google{
+            position:absolute;
+            width: 6%;
+            top: 65%;
+            left: 92.5%;
+            transition: 0.3s;
+          
+        }
+        .google img{
+            width: 100%;
+            border-bottom: solid 3px white;
+            background-color:rgba(255, 255, 255, 0.4);
+            border-radius:10px;
+        }
+        .text-google{
+            position:absolute;
+            top: -30%;
+            opacity: 0;
+            color:white;
+            text-decoration: none;
+            transition: 0.5s;
+            font-size: 30px;  
+            width: 100%;
+            height: 130%;
+            text-align: center;
+            line-height: 200px;
+            text-shadow: -1px 1px 0 #000, 1px 1px 0 #000,1px -1px 0 #000,-1px -1px 0 #000; 
+        }
+       .google:hover{
+            transform: translateY(3px);
+            background-color: azure;
+            box-shadow: 0 0 10px azure,0 0 20px azure,0 0 30px azure,0 0 40px azure;
+       }
+       .text-google:hover{
+        transform: translateY(40px);
+        opacity: 1;
+        height: 160%;
+        top: -60%;
+        opacity: 1;
+       }
+
         .button:hover{
-            background-color:rgba(255, 255, 255, 0.5);
+            background-color:rgba(255, 255, 255, 0.9);
             box-shadow: 0 0 10px rgb(161, 255, 255),0 0 20px rgb(161, 255, 255),0 0 30px rgb(161, 255, 255),0 0 40px rgb(161, 255, 255);
             text-shadow: 0 0 10px rgb(161, 255, 255),0 0 20px rgb(161, 255, 255),0 0 30px rgb(161, 255, 255),0 0 40px rgb(161, 255, 255);
             color:aquamarine;
+            
             border: solid 1px aquamarine;
         }
 
@@ -145,60 +207,48 @@
 
         
         input:checked+ .button{
-            animation: up 1s;
+            animation: up 1.4s;
             animation-fill-mode : forwards;
+            border-radius:0px;
         }
+
         input:checked+.button+.main-box{
             transform: translateX(50px);
             animation: next 1s;
         }
        
-
+        /*按鈕移動動畫*/
         @keyframes up{
-            0%{
-                opacity: 0;
+            0%{ background-color:rgba(1,1, 1, 0);}
+            75%{
+                top: -11%;
+                left: 20%;
+                color:aquamarine;
+                border: none;
+               
+                
             }
             100%{
                 top: -11%;
-                left: calc(17% - (var(--i)*2%));
+                left: 15%;
                 color:aquamarine;
-               font-size: 40px;
-               border: none;
-                border-bottom: solid 1px aquamarine;
-                
-            }
-
+                border: none;
+                border-bottom: solid 3px aquamarine;
+                font-size: 55px;
+                backdrop-filter: blur(0px);
+                background-color:rgba(1,1, 1, 0);
+            }  
         }
-
+    
         @keyframes fade{
-            0%{
-                opacity: 0;
-            }
-            50%{
-                opacity: 0;
-            }
-            75%{
-                opacity: 0;
-            }
-            100%{
-                opacity: 1;
-            }
+            0%{opacity: 0;}
+            50%{opacity: 0;}
+            75%{opacity: 0;}
+            100%{opacity: 1;}
         }
-
+        /*盒子移動動畫*/
         @keyframes next{
-            0%{
-                transform: translate3d(-50vw,-100vh,0px);
-            }
-
-
-        }
-
-        span{
-            opacity: 0;
-        }
-        iframe{
-            width: 100%;
-            height: 100%;
+            0%{transform: translate3d(-50vw,-100vh,0px);}/*往左下移動*/
         }
 
     </style>
@@ -211,7 +261,7 @@
 
     <div class="bkvideo">
         <video autoplay muted loop>
-             <source src="/html/pubilc-img/bkvideo2.mp4">
+             <source src="/html_main/bk2.mp4">
          </video>
     </div>
 
@@ -224,7 +274,7 @@
         <input type="radio" id="button1" name="value" checked>
         <div class="button"style="--i:0">展示影片</div>
         <div class="main-box">
-            <div class="img-box"><img src="/html/pubilc-img/3.jpg" alt=""></div>
+            <div class="img-box"><img src="/html_main/3.jpg" alt=""></div>
             <div class="text-box">
                 <iframe  src="https://www.youtube.com/embed/j0lhxnFX7uo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
@@ -236,7 +286,7 @@
         <input type="radio" id="button2" name="value" checked>
         <div class="button"style="--i:1">設計思路</div>
         <div class="main-box">
-            <div class="img-box"><img src="/html/pubilc-img/3.jpg" alt=""></div>
+            <div class="img-box"><img src="/html_main/3.jpg" alt=""></div>
             <div class="text-box">
                 <p>這個實時聊天室總共分為伺服器和用戶端兩個部分，伺服器負責接受所有用
                     戶端的訊息，再將接受到的訊息傳送給用戶端，而用戶端則是將訊息傳送給伺服
@@ -257,7 +307,7 @@
         <input type="radio" id="button3" name="value" checked>
         <div class="button"style="--i:2"><span>佔</span>心得<span>佔</span></div>
         <div class="main-box">
-            <div class="img-box"><img src="/html/pubilc-img/3.jpg" alt=""></div>
+            <div class="img-box"><img src="/html_main/3.jpg" alt=""></div>
             <div class="text-box">
                 <p>這個專案不算難，並且還有很多可以優化的空間，例如可以使用 QT 來優化用
                     戶端的 GUI 等等，不過總體來說還是十分的實用，同時也讓我對於網路和 IP 以
@@ -271,8 +321,12 @@
 
     
     <div class="github"><a href="https://github.com/basuyaanson/portfolio_website/blob/main/no.html"  target="_blank">
-        <img src="/html/pubilc-img/g.png"><h1>原始碼</h1></a>
+        <img src="/html_main/GitHub-Logo (2).png"><div class="text-github"><p>原始碼</p></div></a> 
     </div>
+
+    <div class="google"><a href="https://github.com/basuyaanson/portfolio_website/blob/main/no.html"  target="_blank">
+        <img src="/html_main/google.png"><div class="text-google"><p>安裝檔</p></div></a> 
+    </div> 
    
        
     
