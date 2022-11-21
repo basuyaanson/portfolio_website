@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>main</title>
+    <title>me8</title>
     <style>
         body{
             margin: 0;
@@ -42,7 +42,7 @@
             width: 50%; 
             background-color: rgb(254,219,176);
             left: 25%;
-            color: rgb(121,103,137);
+            color: white;
             opacity: 0;
             top: 2%;
             
@@ -81,7 +81,7 @@
         }
         /*項目的文字框*/
         .text-box{
-            color:rgb(190,144,143); 
+            color:brown; 
             position: relative;
             width: 60%;
             height: 50%;
@@ -95,7 +95,7 @@
             overflow: hidden;
         }
         .item-title{ 
-           font-weight: 800;
+           font-weight: 500;
             text-align: center;
             font-size: 40px; 
             line-height: 100px;
@@ -113,10 +113,10 @@
             width: 25%;
             top: -120%;
             left: 38%;
-            transition: 0.3s;
+            transition: 0.2s;
         }
         .item-link p{
-            color:  rgb(121,105,136);
+            color:  rgb(225, 98, 98);
             text-align: center;
             border-right: solid 1px;
             border-left: solid 1px;
@@ -130,12 +130,12 @@
             height: 10%;
             right: 8%;
             font-size: 20px;
-            border: solid 1px rgb(126,109,138);
+            border: solid 1px rgb(250, 235, 215);
             text-align: center;
             transition: 0.5s;
             border-radius:10px;
             backdrop-filter: blur(10px);
-            color:  rgb(116,79,88);
+            color: rgb(155, 85, 85);
             background-color: rgb(227,176,154,0.6);
         }
         .open-item-p{
@@ -184,7 +184,7 @@
             top: 83%;
             transition: 0.5s;
             border-radius:10px;
-            border: solid 2px rgb(126,109,138);
+            border: solid 2px rgb(250, 235, 215);
             backdrop-filter: blur(6px);
         }
         .about-link{
@@ -308,10 +308,9 @@
             animation-fill-mode: forwards;
         }
         input:checked+.start+.open-button +.main-box>.title{
-            animation: title 12s ;
+            animation: title 10s ;
             animation-fill-mode: forwards;
         }
-        /*音樂播放按鈕*/
         button{
             position:fixed;
             cursor: pointer;/*觸發懸停小手圖標*/
@@ -373,18 +372,18 @@
                  opacity: 1;
                  border:none;
                  text-shadow: none;
-                 border-radius: 899px;
+                 border-radius: 999px;
                  border: solid 1px  rgb(115,77,86);
             }
             100%{
                 background-color: rgb(254,219,176,0.3);
                 backdrop-filter: blur(3px);
-                border-radius: 999px;
+                border-radius: 10px;
                 width: 50%;
                 opacity: 1;
-                text-shadow: 0 0 10px  rgb(196, 163, 225),0 0 20px  rgb(196, 163, 225),0 0 30px rgb(196, 163, 225),0 0 40px rgb(196, 163, 225);
-                border: solid 2px  rgb(115,77,86);
-            }
+                text-shadow: 0 0 10px rgb(254,219,176),0 0 20px rgb(254,219,176),0 0 30px rgb(254,219,176),0 0 40px rgb(254,219,176);
+                border: solid 2px  rgb(250, 235, 215);
+            } 
         }
         /*閃爍動畫*/
         @keyframes light{
@@ -451,7 +450,7 @@
      
     <div class="bkvideo">
         <video autoplay muted loop>
-           <!----><source src="/html_main/finsh.mp4">
+           <!----><source src="/html_main/mainbk.mp4">
          </video>
     </div>
    
