@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>me8</title>
+    <style>
+        body{
+            margin: 0;
+            overflow-y: hidden;   
+        }
+        @font-face {font-family: 'oxxo';src: url('/html_sorll/text.ttf');} /*引入字體*/
+        a{ text-decoration: none;}/*取消下連結下滑線*/
+        /*頁面*/
+        .page{ 
+            position:fixed;
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden; /*關閉水平滾動框*/
+            perspective: 3px;/*開啟透視實現滾動視差*/
+        }
+        /*主盒子*/
+        .main-box{
+            position: absolute;
+            height: 480%;
+            width: 100%;
+            transform: translateX(-100%);
+        }
+        /*背景影片*/
+        .bkvideo{
+            position:absolute;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            transform: translateZ(-30px) scale(10); /* 將影片向z軸移動-30像素，在放大回原來大小，達到滾動速度相對較慢的滾動視差效果*/
+            top: -50%;
+            left: -200%;
+        }
+        .title{
+            position: absolute;
+            width: 50%; 
+            background-color: rgb(254,219,176);
+            left: 25%;
+            color: rgb(121,103,137);
+            opacity: 0;
+            top: 2%;
+            
+        }
+        .title p{
+            font-family:oxxo, serif;/*套用引入字體*/
+            font-size: 50px;
+            text-align: center;
+            font-weight: 800;
+        }
+        /*項目盒子*/
+        .item-box{
+            position: relative;
+            height: 7%;
+            width: 70%;
+            left: 13%;
+            top: 15%;
+            margin: 2%; 
+        }
+        /*項目的附圖*/
+        .img-box{
+            position: relative;
+            width: 30%;
+            height: 100%;
+            overflow: hidden;
+            transition: 0.5s;
+            pointer-events: none;/*添加穿透屬性 讓在後面的open-item可以觸發懸停事件*/   
+            opacity: 0;   
+        }
+        .img-box img{
+            height: 50%;
+            left: 3%;
+            border-radius:10px;
+            pointer-events: none;
+        
+        }
+        /*項目的文字框*/
+        .text-box{
+            color:rgb(190,144,143); 
+            position: relative;
+            width: 60%;
+            height: 50%;
+            background-color:rgb(254,219,176,0.6);
+            backdrop-filter: blur(6px);
+            left: 20%;
+            top: -100%;
+            transition: 0.5s;
+            border-radius:10px;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .item-title{ 
+           font-weight: 800;
+            text-align: center;
+            font-size: 40px; 
+            line-height: 100px;
+            text-shadow: -1px 1px 0 rgb(132, 99, 99), 1px 1px 0 rgb(132, 99, 99),1px -1px 0 rgb(132, 99, 99),-1px -1px 0 rgb(132, 99, 99); 
+        }
+        .item-content{
+            text-align: center;
+            font-size: 20px; 
+            opacity: 0;
+            transition: 0.3s;
+            
+        }
+        .item-link{
+            position:relative;
+            width: 25%;
+            top: -120%;
+            left: 38%;
+            transition: 0.3s;
+        }
+        .item-link p{
+            color:  rgb(121,105,136);
+            text-align: center;
+            border-right: solid 1px;
+            border-left: solid 1px;
+            border-radius:3px;
+            transition: 0.5s;
+        }
+        /*內容展開觸發框*/
+        .open-item{
+            position:absolute;
+            width: 10%;
+            height: 10%;
+            right: 8%;
+            font-size: 20px;
+            border: solid 1px rgb(126,109,138);
+            text-align: center;
+            transition: 0.5s;
+            border-radius:10px;
+            backdrop-filter: blur(10px);
+            color:  rgb(116,79,88);
+            background-color: rgb(227,176,154,0.6);
+        }
+        .open-item-p{
+            position:relative;
+            transform: translateY(-20px);
+            opacity: 1;
+
+        }
+        /*懸停觸發*/
+        .open-item:hover{
+            right: -10%;
+            width: 116%;
+            height: 110%;
+            transform: translateY(-15px);
+        }
+        /*使用鄰接同層選擇器  讓同級元素img-box也觸發動畫*/
+        .open-item:hover +.img-box{
+            transform: translate3d(100px,120px,0px) scale(2);
+            opacity: 1;
+        }
+        /*使用通用同層選擇器 讓同級元素text-box以及其子元素也觸發動畫*/
+        .open-item:hover ~.text-box  {
+            transform: translate3d(100px,0px,0px) ;
+            width: 80%;
+            height: 100%;
+            opacity: 1;
+        }
+         /*使用直屬選擇器  指定同級元素text-box的子元素觸發動畫*/
+        .open-item:hover ~.text-box > .item-content  {
+            opacity: 1;
+        }
+        .open-item:hover >.open-item-p { 
+            opacity: 0;
+        }
+        .open-item:hover ~.item-link{
+            opacity: 0;
+        }
+        /*關於我 盒子*/
+        .about{
+            position:absolute;
+            width: 22%;
+            background-color:rgb(254,219,176,0.6);
+            height: 12%;
+            top: 0%;
+            left: 40%;
+            top: 83%;
+            transition: 0.5s;
+            border-radius:10px;
+            border: solid 2px rgb(126,109,138);
+            backdrop-filter: blur(6px);
+        }
+        .about-link{
+            position:absolute;
+            z-index: 9;
+            top: 29%;
+            width: 80%;
+            height: 38%;
+            font-size: 1px;
+            text-align: center ;
+            opacity: 0;   
+            left: 10%; 
+        }
+        .about-link a{
+             color: white;
+             transition: 0.5s;
+        }
+        /*使用兩張圖片 來達到分裂效果*/
+        .about1,.about2{
+             position:absolute;
+             top: 1%;
+             width: 90%; 
+             transition: 0.5s;
+             left: 5%;
+             
+        }
+        .about1 img{
+            width: 100%;
+            clip-path: inset(1% 0 50% 0);/*將圖片分上下裁減*/
+            border-radius:10px;
+        }
+        .about2 img{
+            width: 100%;
+            clip-path: inset(49% 0 0 0);/*將圖片分上下裁減*/
+            border-radius:10px;
+        }
+        /*懸停觸發*/
+        .about:hover  >.about-link{
+            opacity:1 ;
+            font-size: 50px;
+            top: 45%;
+        }
+        .about-link a:hover{
+            text-shadow: 0 0 10px azure,0 0 20px azure,0 0 30px azure,0 0 40px azure;
+        }
+        .about:hover .about2,.about:hover .about1{
+            top: calc(var(--i)*10%);
+            transform: translateY(80px);
+        }
+        .about:hover{
+           height: 16%;
+        }  
+        /*開場畫面*/
+        .start{
+            z-index: 50;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #07252d;
+        }
+        /**/
+        .start-text h2{
+            overflow-y: hidden;
+        }
+        .start-text h2,span{
+            top: 10%;
+            left: 15%;
+            position:absolute;
+            font-size: 6em;
+            letter-spacing: 15px;
+            color:#07252d;
+            line-height: 450px;
+            animation: light 4s 5s   ;
+            animation-fill-mode : forwards;
+            z-index: 999;
+        }
+        .start-text span{
+            top: 35%;
+            left: 30%;
+            font-size: 4em;
+            animation: light 2s 8s step-end ;
+            animation-fill-mode : forwards;
+        }
+        /*懸停觸發*/
+        .start-text h2::before{
+            content: attr(data-text);
+            position:absolute;
+            color: #fff;
+            animation: loading 5s  linear ;
+            animation-fill-mode : forwards;
+        }
+        .item-link p:hover{
+            color:rgb(254,253,229);
+            background-color: rgb(116,79,88);
+            border:  solid 1px;
+    
+        }
+        /*開場動畫銜接主頁的觸發按鈕*/
+        .open-button{
+            position:fixed;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            transition: 0.1s;
+            z-index: 999;
+        }
+        /*點擊後觸發事件*/
+        input:checked +.start+.open-button{
+            height: 1%;
+            width: 1%;
+            opacity: 0;
+        }
+        input:checked +.start+.open-button +.main-box{
+            height: 480%;
+            width: 100%;
+            animation: fadein 3s 3s;
+            animation-fill-mode: forwards;
+        }
+        input:checked+.start{
+            animation: fade 2s;
+            animation-fill-mode: forwards;
+        }
+        input:checked+.start+.open-button +.main-box>.title{
+            animation: title 12s ;
+            animation-fill-mode: forwards;
+        }
+        /*音樂播放按鈕*/
+        button{
+            position:fixed;
+            cursor: pointer;/*觸發懸停小手圖標*/
+            background-color: rgb(250, 235, 215,0.5 );
+            right: 8%;
+            bottom: 10%;
+            width: 60px;
+            height: 60px;
+            border-radius: 9px;
+            border: none;
+            z-index: 1;
+            color: white;
+            opacity: 0;
+            transition: 2s 3s;
+        } 
+        button p{
+            font-size: 10px;
+            line-height: 40px;
+        }
+        input{display: none;}/*移除原生按鈕*/
+        /*start淡出動畫*/
+       @keyframes fade{
+            50%{
+                opacity: 1;
+            }
+            100%{
+                opacity: 0;
+                z-index: -1;
+            }
+        }
+        /*主盒子進場動畫*/
+        @keyframes fadein{
+            0%{
+                transform: translateX(-100%);
+            }
+            100%{
+               transform: translateX(0%);
+            }
+        }
+        /*標題動畫*/    
+        @keyframes title{
+            0%{
+                background-color: rgb(254,219,176);
+                width: 110%;
+               opacity: 0;
+                transform: translateX(-510px);
+            }
+            50%{
+                opacity: 0;
+                width: 110%;
+                transform: translateX(-460px);
+                border-radius: 559px;
+                border: solid 1px  rgb(115,77,86);
+               
+            }
+            95%{
+                background-color: rgb(254,219,176);
+                border-radius: 0px;
+                 opacity: 1;
+                 border:none;
+                 text-shadow: none;
+                 border-radius: 899px;
+                 border: solid 1px  rgb(115,77,86);
+            }
+            100%{
+                background-color: rgb(254,219,176,0.3);
+                backdrop-filter: blur(3px);
+                border-radius: 999px;
+                width: 50%;
+                opacity: 1;
+                text-shadow: 0 0 10px  rgb(196, 163, 225),0 0 20px  rgb(196, 163, 225),0 0 30px rgb(196, 163, 225),0 0 40px rgb(196, 163, 225);
+                border: solid 2px  rgb(115,77,86);
+            }
+        }
+        /*閃爍動畫*/
+        @keyframes light{
+            10.1%, 25.1%, 50.1% ,60%{
+                color:#07252d;
+                text-shadow:none
+            }
+           
+            0%,10%, 13%, 25%,28%, 50%, 55% , 62%, 62%, 80%, 90.1%, 100%{
+                color: #fff;
+                text-shadow:
+                0 0 10px  #03bcf4,
+                0 0 20px #03bcf4,
+                0 0 40px #03bcf4,
+                0 0 100px #03bcf4;
+            }
+        }
+        /*文字逐字打印動畫*/
+        @keyframes loading{
+            0%{width: 0;}
+            10%{width: 20%;}
+            20%{width: 60%;}
+            30%{width: 40%;}
+            40%{width: 40%;}
+            50%{width: 60%;}
+            60%{width: 60%;}
+            70%{width: 60%;}
+            80%{width: 100%;}
+            98%{width: 100% ;opacity: 1;}
+            100%{opacity: 0;}
+        }
+        /*音樂播放的按鈕的圖標*/
+        .pause,.play{
+            position:absolute;
+            left: 30%;
+            top: 15%;
+            border-style: solid;
+            border-width: 20px 0 20px 30px;/*利用css邊框接合處是斜角的特性 繪製三角形*/
+            border-color: transparent transparent transparent  rgb(250, 235, 215,0.8);
+            transition: 0.5s;
+        }
+        .play{
+            position: relative;
+            left: 60%;
+            opacity: 0;
+        }
+    </style>
+  
+</head>
+<body> 
+
+    <audio  loop id="music">
+         <source src="/html_main/bkmus1_1.mp3" type="audio/mpeg">
+    </audio>
+     
+     <button id="player" onclick="musicplayer()">
+        <div class="pause" id="pause"></div>
+        <div class="play"id="play"></div>
+        <p id="state">播放音樂</p>
+    </button>  
+    
+
+<div class="page">
+     
+    <div class="bkvideo">
+        <video autoplay muted loop>
+           <!----><source src="/html_main/finsh.mp4">
+         </video>
+    </div>
+   
+   
+    <label>
+        <input type="radio" id="button1" name="value">
+        <div class="start">
+        <div class="start-text">
+                <h2 data-text="輔仁高中陳政鴻-成果集">輔仁高中陳政鴻-成果集</h2>
+                <span>點擊畫面進入主頁....</span>
+            </div>
+        </div>
+        <div class="open-button" onclick="musicplayer()"></div>
+    
+
+    <div class="main-box">
+        <div class="title"><p>輔仁高中陳政鴻-成果集</p></div>
+
+        <div class="item-box">
+            <div class="open-item">
+                <div class="open-item-p"><p>展開內容</p></div>
+            </div>
+            <div class="img-box"><img src="/html_main/3.jpg"></div>
+            <div class="text-box">
+                <div class="item-title">C++程式設計《實時聊天室》</div>
+                <div class="item-content">
+                    使用 visual studio 2019 編寫而成，基於 Winsock 和 TCP/IP 協議達成網路聊天功能,並使用了多
+                    執行緒來實現多人同時聊天。
+                </div>
+            </div>
+            <div class="item-link"><a href="http://127.0.0.1:5500/html/main/main2.html" target="_blank"><p>點擊前往 展示影片 / 設計思路 / 心得 </p></a></div>
+        </div>
+
+        <div class="item-box">
+            <div class="open-item">
+                <div class="open-item-p"><p>展開內容</p></div>
+            </div>
+            <div class="img-box"><img src="/html/pubilc-img/3.jpg"></div>
+            <div class="text-box">
+                <div class="item-title">C++遊戲設計 《銀行大戰》</div>
+                <div class="item-content">
+                    利用 visual studio 2019 編寫而成，使用了物件導向程式設計的基礎和 STL 的概念來設計，並添
+                    加了 EasyX 圖形庫來進行介面設計，這個專案的開發主要是用來練習 C++的編寫，例如物件導 
+                    向，指標，容器等。
+                </div>
+            </div>
+            <div class="item-link"><a href="http://127.0.0.1:5500/html/main/main2.html" target="_blank"><p>點擊前往 展示影片 / 設計思路 / 心得 </p></a></div>
+        </div>
+
+        <div class="item-box">
+            <div class="open-item">
+                <div class="open-item-p"><p>展開內容</p></div>
+            </div>
+            <div class="img-box"><img src="/html/pubilc-img/3.jpg"></div>
+            <div class="text-box">
+                <div class="item-title">Python OpenCV 《人臉辨識》</div>
+                <div class="item-content">
+                    使用 VSCode 編寫而成，基於 OpenCV 電腦視覺庫，來使用數據訓練獲得人臉特徵，並結合人臉 
+                    實時檢測，實現了人臉辨識的功能
+                </div>
+            </div>
+            <div class="item-link"><a href="http://127.0.0.1:5500/html/main/main2.html" target="_blank"><p>點擊前往 展示影片 / 設計思路 / 心得 </p></a></div>
+        </div>
+   
+        <div class="item-box">
+            <div class="open-item">
+                <div class="open-item-p"><p>展開內容</p></div>
+            </div>
+            <div class="img-box"><img src="/html/pubilc-img/3.jpg"></div>
+            <div class="text-box">
+                <div class="item-title">C++程式設計《音樂播放器》</div>
+                <div class="item-content">
+                    利用 visual studio 2019 編寫而成，使用了一些 STL 和物件導向的基礎概念，包括 vector，map、
+                    迭 代器等等，使其能更有效率的讀取文件，這個專案的開發主要也是用來練習 C++的編寫以及
+                    熟悉 STL 的概念。
+                </div>
+            </div>
+            <div class="item-link"><a href="http://127.0.0.1:5500/html/main/main2.html" target="_blank"><p>點擊前往 展示影片 / 設計思路 / 心得 </p></a></div>
+        </div>
+
+       <div class="item-box">
+            <div class="open-item">
+                <div class="open-item-p"><p>展開內容</p></div>
+            </div>
+            <div class="img-box"><img src="/html/pubilc-img/3.jpg"></div>
+            <div class="text-box">
+                <div class="item-title">Python 強化學習 Q-learning《人工智慧玩迷宮》</div>
+                <div class="item-content">
+                    使用 VSCode 編寫而成，基於強化學習的 Q-learning 算法實現了人工智慧玩迷宮，讓 AI 從原本 
+                    需要花費 300 多步才能抵達終點，到最後僅需 40 步就能完成
+                </div>
+            </div>
+            <div class="item-link"><a href="http://127.0.0.1:5500/html/main/main2.html" target="_blank"><p>點擊前往 展示影片 / 設計思路 / 心得 </p></a></div>
+        </div>
+
+        <div class="item-box">
+            <div class="open-item">
+                <div class="open-item-p"><p>展開內容</p></div>
+            </div>
+            <div class="img-box"><img src="/html/pubilc-img/3.jpg"></div>
+            <div class="text-box">
+                <div class="item-title">unreal4 遊戲開發《modern swordsman》</div>
+                <div class="item-content">
+                    這是使用 unreal4 遊戲引擎開發的3D ACT 遊戲,實現了戰鬥系統，包括格擋及暗殺，並添 
+                    加了 NPC 對話功能和任務系統以及簡易劇情。
+                </div>
+            </div>
+            <div class="item-link"><a href="http://127.0.0.1:5500/html/main/main2.html" target="_blank"><p>點擊前往 展示影片 / 設計思路 / 心得 </p></a></div>
+        </div>
+
+        <div class="item-box">
+            <div class="open-item">
+                <div class="open-item-p"><p>展開內容</p></div>
+            </div>
+            <div class="img-box"><img src="/html/pubilc-img/3.jpg"></div>
+            <div class="text-box">
+                <div class="item-title">Blender 動畫風格的頭部 3D 建模</div>
+                <div class="item-content">
+                    使用 visual studio 2019 編寫而成，基於 Winsock 和 TCP/IP 協議達成網路聊天功能,並使用了多
+                    執行緒來實現多人同時聊天。
+                </div>
+            </div>
+            <div class="item-link"><a href="http://127.0.0.1:5500/html/main/main2.html" target="_blank"><p>點擊前往 展示影片 / 設計思路 / 心得 </p></a></div>
+        </div>
+
+        <div class="item-box">
+            <div class="open-item">
+                <div class="open-item-p"><p>展開內容</p></div>
+            </div>
+            <div class="img-box"><img src="/html/pubilc-img/3.jpg"></div>
+            <div class="text-box">
+                <div class="item-title">HTML網頁設計《個人作品網》</div>
+                <div class="item-content">
+                    使用 visual studio 2019 編寫而成，基於 Winsock 和 TCP/IP 協議達成網路聊天功能,並使用了多
+                    執行緒來實現多人同時聊天。
+                </div>
+            </div>
+            <div class="item-link"><a href="http://127.0.0.1:5500/html/main/main2.html" target="_blank"><p>點擊前往 展示影片 / 設計思路 / 心得 </p></a></div>
+        </div>
+
+        <div class="about">
+            <div class="about-link">
+                <a href="#" target="_blank">關於我</a>
+            </div>
+            <div class="about1" style="--i:-1"><img src="/html/pubilc-img/IMG_20221108_220608.jpg" ></div>
+            <div class="about2" style="--i:1"><img src="/html/pubilc-img/IMG_20221108_220608.jpg" ></div>
+        </div>
+      
+    </label>
+
+    <script>
+        var emusic = document.querySelector("#music")//音樂
+        var eplayer = inner=document.getElementById("player");//播放按鈕
+        var state = 1;//當前狀態
+
+         function musicplayer() {
+            //播放狀態
+            if(state==1)
+            {
+                //控制邊框粗細和透明度來繪製圖標
+                document.getElementById("pause").style.height =" 41px";
+                document.getElementById("pause").style.borderWidth =" 0px 0 0px 10px";
+                document.getElementById("play").style.height =" 40px";
+                document.getElementById("play").style.borderWidth =" 0px 0 0px 10px";
+                document.getElementById("play").style.opacity='1';
+                emusic.play()
+                document.getElementById("state").innerHTML="暫停音樂";
+                eplayer.style.opacity='1';
+               
+                state++;
+            }
+            //暫停狀態
+            else{ 
+                document.getElementById("pause").style.height = "0px";
+                document.getElementById("pause").style.borderWidth =" 20px 0 20px 30px";
+                document.getElementById("play").style.opacity='0';
+                emusic.pause()
+                document.getElementById("state").innerHTML="播放音樂";
+                state=1;
+            }
+    }
+       
+    </script> 
+
+</div>
+    
+</body>
+</html>
