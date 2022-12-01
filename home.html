@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁-輔仁高中-陳政鴻</title>
+    <link rel="stylesheet" href="./item/nav.css">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: rgb(43, 42, 42);
+        }
+        a{text-decoration: none;}/*取消下滑線*/
+        /*背景圖片*/
+        .bkimg{
+            height: 100vh;
+            background-image:url(./item/img/home2.jpg);
+            background-size: cover;
+        }
+        .bkimg1{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        .bkimg2,.bkimg3{
+            left: 5%;
+            height: 80%;
+            position:relative;
+            width: 50%;
+            border: 6px solid rgb(195, 92, 92);
+            background-image:url(./item/img/home2.png);
+            background-attachment: fixed;/*讓盒子滾動時圖片不會跟著移動，但盒子內容還會移動*/
+            background-size:contain;
+            margin-top: 20%;
+          
+        }
+        .bkimg3{ background-image:url(./item/img/bk6.jpg);background-position:-40% ;}
+        /*頁面*/
+        .page{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        /*間隔方塊*/
+        .space{
+            position:relative;
+            width: 100%;
+            height: 20%;
+            background-color: rgb(195, 92, 92);
+        }
+        /*標題和語錄*/
+        .home-text h2{
+            transform: translateX(-1000px);
+            width: 100%;
+            top: 0;
+            left: 3%; 
+            height: 20%;
+            position:absolute;
+            font-size: 80px;
+            letter-spacing: 15px;
+            color:transparent;
+            line-height: 500px;
+            animation: light 3s 2s,move 2s ;
+            animation-fill-mode : forwards;
+        }
+        /*標題背景*/  
+        .textbk{
+            transform: translateX(1000px);
+            animation:move 1s ;
+            animation-fill-mode : forwards;
+            border: 4px double white;
+            top: 34%;
+            left: 2%; 
+            height: 20%;
+            position:absolute;
+            font-size: 70px;
+            letter-spacing: 15px;
+            color:transparent;
+            backdrop-filter: blur(6px);
+            border-radius:10px;
+        }
+        /*標題*/
+        .home-text h2{
+            color:white;
+        }
+        /*閃爍動畫*/
+        @keyframes fadeout{
+            100%{ opacity:1;}
+        }
+        @keyframes light{
+            10.1%, 25.1%, 50.1% ,60%{
+                color:transparent;
+                text-shadow:none
+            }
+            0%,10%, 13%, 25%,28%, 50%, 55% , 62%, 62%, 80%, 90.1%, 100%{
+                color: #fff;
+                text-shadow:
+                0 0 1px rgb(255, 255, 255),
+                0 0 2px rgb(255, 255, 255),
+                0 0 40px rgb(255, 255, 255),
+                0 0 1px white;
+            }
+        }
+        @keyframes light2{
+            10.1%, 25.1%, 50.1% ,60%{
+                color:transparent;
+                text-shadow:none
+            }
+            0%,10%, 13%, 25%,28%, 50%, 55% , 62%, 62%, 80%, 90.1%, 100%{
+                color: #fff;
+                text-shadow:
+                0 0 10px rgb(255, 255, 255),
+                0 0 20px rgb(255, 255, 255),
+                0 0 40px rgb(255, 255, 255),
+                0 0 100px white;
+                opacity: 1;
+            }
+        }
+        /*移動動畫*/
+        @keyframes move{
+            100%{transform: translateX(0px);}
+        }
+        .content{
+            position: absolute;
+            width: 80%;
+            bottom: 10%;  
+            height: 20%;
+           
+        }
+        .content-inside{
+            color: rgb(43, 42, 42);
+            letter-spacing:50px; 
+            position:absolute;
+            font-size: 30px;
+            width: 90%;
+            top: 30%;
+            left: 5%;
+            opacity: 0;
+            transition: .3s;
+            text-align: center;
+            font-weight: 800;
+            text-shadow:
+        1px 1px 0 rgb(255, 255, 255),
+        -1px -1px 0 rgb(255, 255, 255),  
+        1px -1px 0 rgb(255, 254, 254),
+        -1px 1px 0 rgb(255, 254, 254),
+        1px 1px 0 rgb(255, 248, 248);
+        }
+        /*主要盒子 配合javascript來達成滾動動畫(監聽盒子與頂部的距離，當達成條件後，就使用classList來添加類觸發動畫)*/
+        .box {
+            top: 4%;
+            position:relative;
+            width: 40%;
+            height: 5%;
+            background: rgb(43, 42, 42);
+            color: #fff;  
+            transition: transform 0.2s ease;
+            right: -10%;
+            opacity: 0;
+            transform: translateX(200%);
+        }
+        /*小標題*/
+        .title{
+            left: 56%;
+            width: 40%;
+            height: 100%;
+            position: absolute;
+           
+        }
+        .title h1,p{
+            transform: translateY(150%);
+            font-size: 120px;
+            text-align: center;
+            animation:  light 1.3s infinite;
+            
+        }
+        .title p{
+            transform: translateY(400%);
+            font-size: 40px;
+            transition: .3s;
+        }
+        .title p:hover{
+          
+            background-color: rgb(0, 0, 0,0.2);
+            animation:  light 1.3s;
+            animation-fill-mode: forwards;
+        }
+        /*當觸發滾動事件觸發*/
+        .box.show{
+        transform: translateX(120%);
+        opacity: 1;
+        }
+         /*使用兩張圖片 來達到分裂效果*/
+        .content1,.content2{
+            top: 15%;
+            position:absolute;
+            color: white;
+            font-size: 80px;
+            font-family: monospace;/*引用字體*/
+            text-transform:uppercase;/*字母大寫*/
+            left: 3%;
+            animation: light 2s 3s step-end ,fadeout 0.1s 3s ;
+            animation-fill-mode : forwards;
+            opacity: 0;
+        }
+        .content1{ clip-path: inset(0 0 50% 0); }/*將圖片分上下裁減*/
+        .content2{clip-path: inset(49% 0 0 0);}/*將圖片分上下裁減*/
+    
+        /*懸停觸發*/
+        .content:hover >.content2 , .content:hover >.content1{
+            transform:translateY(calc(var(--i)*32%)) ;
+            transition: 0.5s;
+           
+        }
+        .content:hover >.content-inside{
+            opacity: 1;
+        }
+        
+        
+    </style>
+</head>
+<body>
+
+   <ul>
+        <li><div class="navtitle"><a href="#">輔仁高中-陳政鴻 個人網站</a></li></div>
+		<li><a href="./home.html">首頁</a></li>
+		<li><a href="./item/portfolio-1.html">作品集</a></li>
+		<li><a href="./item/aboutme.html">關於我</a></li>
+	</ul>
+<div class="page">
+   
+
+    
+    <div class="home-text">
+        <div class="textbk">輔仁高中-陳政鴻洪</div>
+        <h2>輔仁高中-陳政鴻</h2>
+    </div>
+
+  <div class="content">
+        <div class="content-inside">
+           持續渴望 , 保持謙虛
+        </div>
+        <div class="content1" style="--i:-1">Stay Hungry , Stay Foolish</div>
+        <div class="content2" style="--i:1">Stay Hungry , Stay Foolish</div>
+   </div>
+
+   
+        <div class="bkimg" ></div>
+       
+        <div class="bkimg1">
+            <div class="space" style="height:8% ;"></div>
+            <div class="bkimg2"></div>
+            <div class="bkimg3"></div>
+    
+        </div>
+
+           <div class="box" style="top: 10%;"></div>
+           <div class="box"></div>
+           <div class="box"></div>
+            <div class="title">
+                <h1>作品集</h1>
+                <a href="./item/portfolio-1.html"><p>點擊前往</p></a>
+            </div>
+           <div class="box"></div>
+           
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="title">
+            <h1>關於我</h1>
+            <a href="./item/aboutme.html"><p>點擊前往</p></a>
+        </div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+           <div class="box"></div><div class="box"></div><div class="box"></div>
+       
+</div>
+    <script>
+
+        const boxList = document.querySelectorAll('.box')/*獲取盒子*/
+        //滾動動畫事件
+        window.addEventListener('scroll', scrollLoad)
+        function scrollLoad() {
+        /*遍歷所有盒子*/
+        boxList.forEach(box => {
+        //當前盒子距離頂部的距離
+        const boxTop = box.getBoundingClientRect().top
+        //觸發條件, 當盒子距離頂部的距離為整體高度的70%
+        const triggerBottom = window.innerHeight * 0.6
+      
+        if (boxTop <= triggerBottom){
+
+           box.classList.remove('show')
+            
+        } else {
+             box.classList.add('show') 
+            }
+        })
+    }
+
+        /*滑鼠移動視差效果*/
+        var background = document.getElementsByClassName("bkimg")[0]; /*獲取圖片*/
+        var range = 40;
+        var calcValue = function calcValue(a, b) {
+            return (a / b * range - range / 2).toFixed(1);
+        };
+        var timeout = void 0;
+        document.addEventListener('mousemove',
+        function(_ref) {
+            var x = _ref.x,
+            y = _ref.y;
+            if (timeout) {
+                window.cancelAnimationFrame(timeout);
+            }
+            timeout = window.requestAnimationFrame(function() {
+                var yValue = calcValue(y, window.innerHeight);
+                var xValue = calcValue(x, window.innerWidth);
+                console.log(xValue, yValue);
+                background.style.backgroundPosition = xValue * .45 + "px " + (-yValue * .45 ) + "px";
+	            })
+            },false);
+
+    </script>
+</body>
+</html>

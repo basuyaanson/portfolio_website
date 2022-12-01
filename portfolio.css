@@ -1,0 +1,257 @@
+body{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(64, 75, 219);
+}
+input{ display:none}; /*移除按鈕*/
+a{ text-decoration: none;}/*取消下連結下滑線*/
+/*頁面*/
+.page{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+ /*背景圖片*/
+.bkimg,.bkimg2{
+    position:fixed;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;/*添加穿透屬性 讓後面的元素可以被觸發*/
+    background-size: cover;
+}
+.bkimg,.bkimg2{background-image:url(./img/portfolio-bkimg1.png);}
+.bkimg img,.bkimg2 img{width: 100%;}
+.bkimg2{
+    z-index: 9;
+    background-image:url(./img/portfolio-bkimg2.png);
+}
+/*項目盒子*/
+.item{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: 2s;
+}
+/*項目附圖*/
+.item-img{
+    width: 15%;
+    height: 23%;
+    position:absolute;   
+    overflow: hidden;
+    left: 52%;
+    top: 39%;
+    z-index: -9;
+    transform: perspective(800px) rotateY(-55deg) rotateZ(5deg) ;
+    transition: .5s;
+}
+.item-img img{
+    height: 100%;  
+}
+/*懸停事件*/
+.item-img:hover{
+    transform:none ;
+    width: 70%;
+    height: 50%;
+    z-index: 99999;
+    left: 50%;
+}
+/*標題*/
+.item-title{
+    position:absolute;
+    width: auto;
+    font-size: 60px;
+    left: 7%;
+    top: 20%;
+    color: rgba(0, 0, 0, 0);
+    transform: perspective(1800px) rotateY(35deg) rotateZ(1deg);
+    transition: .3s; 
+    animation: light 2s .5s;
+    animation-fill-mode: forwards;
+}
+.item-title:hover{
+    width: 100%;
+    transform: none;
+    left: 10%;
+    font-size: 80px;
+    z-index: 99;
+}
+/*文字盒子*/
+.content{
+    top: 25%;
+    right: 3%;
+    transform: perspective(800px) rotateY(-49deg) rotateX(15deg);
+    position: absolute;
+    width: 25%;
+    height: 35%;
+    text-align: center;
+    color: white;
+    background-color: rgba(111, 91, 94, 0.753);
+    transition: 0.5s;
+    overflow: hidden;
+}
+.content:hover{
+  transform: none;
+  width: 50%;
+  z-index: 999;
+}
+/*主頁 展示影片 設計思路 心得 盒子 預設在屏幕外*/
+.main,.demo,.design,.reflection{
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    transform: translateX(100%);
+}
+/*其他項目按鈕 當前項目按鈕*/   
+.button,.nowbutton{
+    border: solid 2px white;
+    cursor: pointer;/*小手圖標*/
+    position:fixed;
+    font-size: 15px;
+    margin: 8%;
+    color: white;   
+    backdrop-filter: blur(3px);/*毛玻璃效果*/
+    padding: 10px;
+    transition: 0.3s;
+    top: calc(-20% + (var(--i)*11%));/*使用變量控制按鈕間格*/
+    left: -7%;
+    z-index: 9;
+    width: 3%;
+    height: 5%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.nowbutton{
+    color: black;
+    border: solid 2px black;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.button:hover ,.nowbutton:hover{
+    text-align: center;
+    left: -7%;
+    width: 16%;
+    color: black;
+    border: solid 2px black;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+/*項目內容導航*/
+.item-nav{
+    position:absolute;
+    width: 100%;
+    font-size: 60px;
+    right: -43%;
+    top: 5%;
+    transform: perspective(800px) rotateY(-45deg) rotateZ(-8.5deg) rotateX(5deg) ;
+    color: rgba(255, 255, 255, 0);
+    animation: light 2s 2s;
+    animation-fill-mode: forwards;
+}
+.item-nav span{
+    animation: light2 2s 2.5s;
+    animation-fill-mode: forwards;
+}
+/*移動類 配合javascript的ClassList來實現內容切換*/
+.move{
+  transform: translateX(0);
+}
+/*內容切換按鈕 (三角形)*/
+.arrow,.arrow2{
+    position:absolute;
+    z-index: 1;
+    left: 53.4%;
+    top: 67%;
+    transform: perspective(800px) rotateY(-60deg) rotateZ(10deg) ;
+    border-style: solid;
+    border-width: 20px 40px 20px 0;
+    border-color: transparent rgba(255, 255, 255, 0.6) transparent transparent;
+}
+.arrow2{
+    left: 61%;
+    top: 72%;
+    transform: perspective(800px) rotateY(130deg) rotateZ(-10deg) ;
+    border-color: transparent rgba(255, 255, 255, 0.6) transparent   transparent ;
+}
+.arrow:hover,.arrow2:hover{
+    border-color: transparent rgba(255, 254, 254) transparent transparent;
+}
+/*當前項目內容提示*/
+.loc{
+    position: absolute;
+    left: 54.5%;
+    top: 69%;
+    color: rgb(252, 252, 252);
+    font-size: 30px;
+    transform: perspective(800px) rotateY(-50deg) rotateZ(10deg)  ;
+}
+.loc span{
+    opacity: 0;
+}
+ /*google github連結*/
+.github,.google{
+    position:absolute;
+    width: 5%;
+    bottom: 5%;
+    right: 20%;
+    left: 30%;
+    z-index: 999;
+}
+.google{
+    left: 40%;
+    width: 4.5%;
+}
+.github img,.google img{
+    width: 100%;
+    border-bottom: solid 3px white;
+    background-color:rgba(113, 111, 111, 0.6);
+    border-radius:10px;
+    transition: 0.2s;
+}
+.github p,.google p{
+    position:absolute;
+    top: 0%;
+    color: rgb(1, 1, 1);
+    font-size: 20px;
+    transition: .3s;
+    font-weight: 800;
+    opacity: 0;
+    left: 10%; 
+}
+.github:hover p,.google:hover p{
+    top: 60%;
+    opacity: 1;
+    text-shadow: 0 0 10px azure,0 0 20px azure,0 0 30px azure,0 0 40px azure;
+}
+.github:hover,.google:hover,.github:hover img,.google:hover img{
+    transform: translateY(3px);
+    background-color: white;
+    box-shadow: 0 0 10px azure,0 0 20px azure,0 0 30px azure,0 0 40px azure;
+}
+  /*閃爍動畫*/
+@keyframes light{
+    10.1%, 25.1%, 50.1% ,60%{
+        color:transparent;
+        text-shadow:none;
+    }
+    0%,10%, 13%, 25%,28%, 50%, 55% , 62%, 62%, 80%, 90.1%, 100%{
+        color: #fff;
+        text-shadow:
+        0 0 10px rgb(248, 113, 35),
+        0 0 20px rgb(248, 113, 35),
+        0 0 40px rgb(248, 113, 35),
+        0 0 100px rgb(0, 0, 0);
+    }
+}
+@keyframes light2{
+    10.1%, 25.1%, 50.1% ,60%{
+        color:transparent;
+        text-shadow:none
+    }
+    0%,10%, 13%, 25%,28%, 50%, 55% , 62%, 62%, 80%, 90.1%, 100%{
+        color: #fff;
+        text-shadow:
+        0 0 10px rgb(219, 219, 219),
+        0 0 20px rgb(219, 219, 219),
+        0 0 40px rgb(219, 219, 219),
+        0 0 100px white;
+    }
+}

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./nav.css">
+    <title>關於我</title>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        text-shadow:
+        1px 1px 0 #000,
+        -1px -1px 0 #000,  
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+        overflow-x: hidden;      
+    }
+    a{text-decoration: none;}/*取消下滑線*/
+  
+    /*頁面*/
+    .main{
+        width: 100%;
+        height: 100%;
+        position:absolute;
+    }
+    /*主要盒子 配合javascript來達成滾動動畫(監聽盒子與頂部的距離，當達成條件後，就使用classList來添加類觸發動畫)*/
+    .box {
+        position:relative;
+        width: 100%;
+        height: 20%;
+    /*background: #ff00005b;*/
+        color: #fff;
+        font-size: 30px;
+        margin-top: 20px;
+        transition: transform 0.6s ease, opacity 0.6s linear;
+    }
+    /*偶數盒子 從右邊進場*/
+    .box:nth-child(even) {
+        transform: translateX(-400%);
+        opacity: 0;
+    }
+    /*奇數盒子 從左邊進場*/
+    .box:nth-child(odd) {
+        transform: translateX(400%);
+        opacity: 0;
+    }
+    /*當觸發滾動事件觸發*/
+    .box.show {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    /*背景圖片*/
+    .bkimg1,.bkimg2,.bkimg3,.bkimg4{
+        width: 100%;
+        height: 100%;
+        position:relative;
+        background-attachment: fixed;/*讓盒子滾動時圖片不會跟著移動，但盒子內容還會移動*/
+        background-size: cover;
+    }
+    .bkimg1 {background-image: url(./img/bk1.jpg);}
+    .bkimg2{background-image: url(./img/bk2.jpg);background-size:auto 120%;}
+    .bkimg3{background-image: url(./img/bk3.jpg);background-size:100% auto;background-position:center; }
+    .bkimg4{background-image: url(./img/bk6.jpg);background-size: 100% auto;background-position-x: center;}
+   
+    .title{
+        position: absolute;
+        font-size: 80px;
+        color:darkcyan;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255,1);
+        width: 50%;
+        height: 30%;
+        left: 30%;
+        top: 30%;
+        transform: translateX(150%);
+        animation: title 2.5s;
+        animation-fill-mode: forwards;
+    }
+    @keyframes title{
+        0%{
+           
+            border-radius: 999px;
+        }  
+        75%{
+            background-color: rgba(255, 255, 255);
+            border-radius: 500px;
+            transform: translateX(0px);
+        }
+        90%{ 
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 0px;}
+        100%{
+            transform: translateX(0px);
+            text-shadow:
+                0 0 10px rgb(255, 255, 255),
+                0 0 20px rgb(255, 255, 255),
+                0 0 40px rgb(255, 255, 255),
+                0 0 100px white;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+    }
+    /*內文樣式*/
+    .content1{
+        position: relative;
+        left: 10%;
+        line-height:400px ;
+        font-size: 50px;
+        text-shadow:
+            5px 5px 0 #000,
+            -1px -1px 0 #000,  
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+    }
+    .content2{
+        top: -20%;
+        position: relative;
+        left: 40%; 
+      
+    }
+    .content2::before{
+        content: ' ';
+        border-top: 5px solid #FFF;
+        display: inline-block;
+        height: 5%;
+        width: 60%;
+        position: absolute;
+        left:-30%;
+        top: -10%;
+       
+    }
+    .content3{
+        width: 100%;
+        top: 30%;
+        position: absolute;
+        left: 10%;
+        font-family: monospace;/*引用字體*/
+        text-transform:uppercase;/*字母大寫*/
+        font-size: 35px;
+        
+    }
+    .content3 p{
+        top: 50%;
+        position: absolute;
+        left: 30%;
+        font-size: 45px;
+    }
+    .img1-1{
+        top: -200%;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        left: 10%;
+        z-index: 99;
+    }
+    .img1-1 img{
+        height: 350%;
+        border-radius: 60px; 
+    }
+    .content4{
+        position: relative;
+        left: 5%;
+        width: 51%;
+    }
+    .content4 p{position: relative;font-size: 25px;}
+
+ 
+    </style>
+</head>
+<body>
+
+    <ul>
+        <li><div class="navtitle"><a href="#">輔仁高中-陳政鴻 個人網站</a></li></div>
+		<li><a href="../home.html">首頁</a></li>
+		<li><a href="./portfolio-1.html">作品集</a></li>
+		<li><a href="./aboutme.html">關於我</a></li>
+	</ul>
+
+<div class="main">
+   
+    <div class="bkimg1">  
+      
+        <div class="bkimg1">
+            <div class="title">個人簡介</div>
+        </div>
+
+        <div class="bkimg1"></div>
+        <div class="bkimg1"></div>
+      
+        <div class="bkimg2"></div>
+        <div class="bkimg2"></div>
+        <div class="bkimg2"></div>
+        <div class="bkimg2"></div>
+        <div class="bkimg2"></div>
+      
+        <div class="bkimg3"></div>
+        <div class="bkimg3"></div>
+        <div class="bkimg3"></div>
+        <div class="bkimg3"></div>
+       
+
+        <div class="bkimg4"></div>
+        <div class="bkimg4" style="height: 76%;"></div>
+       
+        
+    </div>
+
+   
+    <div class="box"><div class="content1"><h1>陳政鴻</h1></div></div>
+    <div class="box"></div>
+
+    <div class="box">
+        <div class="content2">
+            <p> 專長:  HTML / C++ / unreal虛幻引擎 </p>
+            <p> 興趣: 欣賞影視作品 / 唱歌與跳舞  / Blearnd </p>  
+            <p> 高中經歷: 資訊社幹部 / 學藝股長</p>
+            <p> 身分: 新住民子女(越南) / 原住民 (鄒族)</p>
+        </div>
+    </div>
+
+    <div class="box"><div class="img1-1"><img src="./img/me3.png"></div></div>
+    
+    <div class="box">
+        <div class="content3">
+            <h1>Stay Hungry   Stay Foolish </h1>
+            <p>  持續渴望 , 保持謙虛 --Steve Jobs</p> 
+        </div>
+    </div>
+    
+   
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"><div class="content1"><h1>專長與興趣</h1></div></div>
+    <div class="box"></div>
+    
+    <div class="box"><div class="content4">
+        <h1>C++</h1>
+        <p>因為想對程式語言有更扎實的基礎，所以我選擇學習 C/C++，不過剛開
+            始學習C++對我來說是一件非常辛苦的事，光是要去理解語法和邏輯就
+            讓我的腦袋打結很多次，不過我總是勉勵自己去學，一次學不來就再學一次，因為我認為，
+            別人能夠學會的東西，我也一定能夠學會，就算
+            過程比別人辛苦也沒關係，雖然學到現在我對c++的熟悉程度還只能算
+            是個新手，有很大的進步空間，但我還是會繼續堅持下去。
+            </p>
+    </div></div>
+    
+    <div class="box"><div class="content2" style="top: -50%; left: 35%;"></div></div>
+    <div class="box" style="background-color:rgba(255, 255, 255, 0.3);"></div>
+    
+    <div class="box">
+        <div class="content4" style="transform: translateX(80%);">
+            <h1>unreal</h1>
+            <p>我第一次接觸到虛幻引擎是在高一的時候，那時有個叫自主學習的課程
+                ，而我的第一反應就是做一款遊戲，於是說做就做，我選擇用虛幻引擎
+                來做，搭配網路教學和素材，拼湊出了一些遊戲。不過學到現在，我還
+                有很多的東西還要去學習，包括藍圖，C++編程，渲染，動畫等等，這
+                會是個漫長的過程，不過我會樂在其中。
+                </p>
+        </div>
+    </div>
+    
+    <div class="box"><div class="content2" style="top: -50%; left: 67%;"></div></div>
+    <div class="box"style="background-color:rgba(255,255,255,0.3);"></div>
+    
+    <div class="box"><div class="content4">
+        <h1>欣賞影視作品 </h1>
+        <p>我觀看影視作品大部份並非是用來消遣，而是去欣賞每部作品想要傳
+            達的理念和刻劃出的世界觀，例如反烏托邦，科幻，末日等等
+            ，除此之外我也喜歡欣賞每部作品在各種世界觀下所運用的美術風格
+            ，像是賽博朋克，柴油龐克，哥特風格等等。
+            </p>
+    </div></div>
+
+    <div class="box"><div class="content2" style="top: -50%; left: 35%;"></div></div>
+        
+    <div class="box"style="background-color:rgba(255,255,255,0.3);">
+        <div class="img1-1" style="height: 70%; transform:translate3D(50%,90%,0);"><img src="./img/ab2.jpg"></div>
+    </div>
+
+
+    <div class="box"><div class="content4" style="transform: translateX(80%);">
+        <h1>唱歌與跳舞</h1>
+        <p>我本身除了是個新住民子女，同時也是個原住民，所以我經常參與歌唱
+            和舞蹈的練習，不過除了唱歌，我自己也很喜歡聽歌，喜歡的作曲家
+            有米津玄師、澤野宏之等等，而曲風例如jpop日式搖滾、funk、jazz-fusion、Kawaii-Bass和Future-Core等等。
+            </p>
+        </div>
+    </div>
+       
+   
+    <div class="box"><div class="content2" style="top: -50%; left: 68%;"></div></div>
+    
+    <div class="box" style="background-color:rgba(255,255,255,0.3);">
+        <div class="img1-1" style="height: 80%; transform:translate3D(-1%,-10%,0) ;" ><img src="./img/ab3.png"></div>
+        <div class="img1-1" style="height: 80%; transform:translate3D(-10%,-120%,0) ;" ><img src="./img/ab4.png"></div>
+    </div>
+
+    <div class="box"></div>
+
+    <div class="box">
+        <div class="content3" style=" width: 80%; left: 3%;">
+            <h1> Every day is a new day. It is better to be lucky. But I would rather be 
+                exact. Then when luck comes you are ready.</h1>
+            <p style=" font-size: 35px; top: 80%; left:0%;">每一天都是一個新的日子。走運當然是好的，不過我情願做到分毫不差。這
+                樣，運氣來的時候，你就有所準備了。 -- Ernest Hemingway</p> 
+        </div>
+    </div>
+
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"><div class="content1"><h1>未來目標</h1></div></div>
+    <div class="box"></div>
+
+    <div class="box"><div class="content4"><h1>傳承原住民文化</h1></div></div>
+
+    <div class="box">
+        <div class="content4">
+            <p style="font-size:35px ;">為什麼要傳承原住民文化</p>
+            <p>文化是能將一群人凝聚在一起的重要力量，失去了文化，不僅僅是丟失
+                了傳統技藝或語言而已，更重要的是失去讓族人能夠凝聚起來的力量，
+                所以傳承文化的作用與重要性，其實是讓族人能為自己的身份感到認
+                同，而通過這份認同，讓我們這些被稱為弱勢群體的原住民，能夠開始
+                凝聚起來，在社會上展現自己與證明自己。
+                </p>
+        </div>
+    </div>
+
+    <div class="box"><div class="content2" style=" top: -70%; left: 35%;"></div></div>
+    
+    <div class="box">
+        <div class="content4" style="left:20% ;" > 
+        <p style=" font-size:35px;">要如何傳承</p>
+        <p style="font-size:25px ;">隨著資訊科技的高速發展，人們逐漸喪失對傳統文化的興趣，尤其各
+            種吸引年輕人的主流文化開始流入，讓傳統文化逐漸式微，不過這樣的
+            現象是必然的，我們唯一能做的的，就是結合主流文化的優點和跟上時
+            代的腳步，讓傳統文化能夠以另一種方式存活下來，而我自己的想法
+            就是透過遊戲來吸引年輕人來認識鄒族文化，鄒族的神話故事是很有趣
+            的，像是大洪水，射日傳說，小矮人和鞣皮技術的由來等等，若是結合
+            遊戲來呈現，將會是很有趣的一件事。除此之外，原住民在台灣的歷
+            史也是非常耐人尋味的，不管是荷蘭統治時期，清領時期，日治時期還
+            是民國時期，原住民在這些歷史裡都有著重要的影響。而讓我印象最深
+            刻的事件，莫過於鄒族偉人-高一生的故事，作為被日本培養的原住民
+            菁英，在實現原住民自治的理念裡持續奮鬥著，然而228事件中卻遭到
+            無情殺害。這些原住民在歷史中的興盛與傷痕，都是非常值得透過遊戲
+            或是多媒體來傳達給後人去認識的。
+        </div>
+    </div>
+
+    <div class="box"><div class="content2" style="top: -70%; left: 50%;"></div></div>
+    <div class="box"> <div class="img1-1" style="height: 50%; transform:translate3D(70%,350%,0) ;" ><img src="./img/cou.png"></div></div>
+    
+    <div class="box">
+        <div class="content4" style="top: 30%; left:20% ;" > 
+            <p style="font-size:25px ;">除了遊戲外，數位學習也是讓原住民文化能夠傳承的重要途徑，除了架設學習網站，編寫軟體等等，還能結合深度學習
+                語音合成，打造自然的原住民語音模型，讓學習族語不會再被教師資源給侷限，此外還有結合虛擬實境技術的虛擬教室，讓都市原住民能透過虛
+                擬教室親身體驗傳統文化。所以隨著資訊科技的發展，傳統文化也必須要跟著進步與結合，才有可能不被淘汰與流失。
+        </div>
+    </div>
+
+    <div class="box"></div>
+
+    <div class="box"><div class="content4" style="width: 55%;" >
+            <h1>投身遊戲製作與資訊科技發展</h1>
+            <p>儘管現在的VR遊戲在硬體、物理限制、成本方面擁有許多阻礙要解決，但我
+                相信隨著這些技術的突破，未來 VR 遊戲將會成為遊戲產業的新潮流。所以
+                我也打算投入這類的產業。
+                </p>
+    </div></div>
+
+    <div class="box"><div class="content2" style="top: -50%; left: 35%;"></div></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+   
+   
+    <div class="box"><div class="content1"><h1>結語</h1></div></div>
+    <div class="box"> <div class="content2" style="width:90% ; top: 80%; left: 32%;"></div></div>
+
+    <div class="box">
+        <div class="content4" style="font-size:25px ;" >
+        如果要說在我的人生裡，讓我感到遺憾的事情，那就是沒有主動爭取更
+        多機會來提升與展現我的資科能力，在我求學的路上我一直在探索我適
+        不適合進入資訊科技的領域，但總無法下定決心，不過隨著我自學的東
+        西越來越多，我對資訊科技領域的嚮往愈發堅定，即便在自學的過程中
+        經常遭遇挫折和困難，但我都不曾放棄，並且我也確定了一件我將來要
+        做的事，那就是運用資訊科技來傳承我們鄒族的文化，雖然我沒有參加
+        過資訊相關的營隊或是競賽，只有通過自學而來的基礎，擁有這樣的想
+        法在外人眼裡似乎是在異想天開，但我不在意他人說我不自量力，我將
+        為了我的理想而前進，就算失敗也不會放棄。
+        <br><br>所以如果我有榮幸被貴系錄取，那這將會是我理想路上最重要的一個基石，
+        而我也會珍惜這個機遇，主動爭取更多機會來提升我的資訊科技能力，為鄒族乃
+        至原住民以及新住民的發展做出貢獻
+    </div></div>
+
+    <div class="box">
+        <div class="content3" style="top: 155%; left:5%;">
+            <h1>You have dreams,you go to protect it.</h1>
+            <p>有夢想，那就去守護它-《當幸福來敲門》</p> 
+        </div>
+    </div>
+  
+  </div>  
+
+</body>
+<script>
+    
+const boxList = document.querySelectorAll('.box')/*獲取盒子*/
+//滾動動畫事件
+window.addEventListener('scroll', scrollLoad)
+    function scrollLoad() {
+        /*遍歷所有盒子*/
+        boxList.forEach(box => {
+        //當前盒子距離頂部的距離
+        const boxTop = box.getBoundingClientRect().top
+        //觸發條件, 當盒子距離頂部的距離為整體高度的70%
+        const triggerBottom = window.innerHeight * 0.7
+      
+        if (boxTop <= triggerBottom){
+
+            box.classList.add('show') 
+            
+        } else {
+            box.classList.remove('show')
+            }
+        })
+    }
+ 
+</script>
+</html>
